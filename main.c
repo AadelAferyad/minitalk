@@ -1,4 +1,6 @@
+#include "minitalk.h"
 #include <stdio.h>
+#include <string.h>
 
 /*
  * 128 64 32 16 8 4 2 1
@@ -14,20 +16,10 @@
  * */
 int	main(void)
 {
-	int	n;
-	n = 0;
-	
-	n = n << 1;
-	n = n | 1;
+	char *n;
 
-	n = n << 1;
-	n = n << 1;
-	n = n << 1;
-	n = n << 1;
-	n = n << 1;
-
-	n = n << 1;
-	n = n | 1;
-	printf("%d %c\n", n, n);
+	n = "Ѳ";
+	_puts(n);
+	printf("\n%s len : %d", "Ѳ");
 	return (0);
 }
