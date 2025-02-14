@@ -6,7 +6,7 @@
 /*   By: aaferyad <aaferyad@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:49:29 by aaferyad          #+#    #+#             */
-/*   Updated: 2025/02/13 17:36:47 by aaferyad         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:59:51 by aaferyad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	send_sig(char *buffer, int pid)
 			ft_printf("buffer : %c\n", buffer[i]);
 			kill(pid, SIGUSR1);
 		}
+		usleep(10);
 		i--;
 	}
 }
