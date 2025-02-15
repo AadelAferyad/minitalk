@@ -34,18 +34,19 @@ void	my_sig_handler(int signum, siginfo_t *info, void *context)
 	if (pid != info->si_pid)
 	{
 		pid = info->si_pid;
-		_putchar('\n');
-		byte = 0;
 		counter = 0;
+		byte = 0;
 	}
 	if (signum == SIGUSR1)
 		sigusr1_handler(&byte);
 	else if (signum == SIGUSR2)
 		sigusr2_handler(&byte);
 	counter++;
+	if (counter == 8 && byte == 0)
+		kill(pid, SIGUSR1);
 	if (counter == 8)
 	{
-		_putchar(byte);
+		_puts((char *)&byte);
 		byte = 0;
 		counter = 0;
 	}
@@ -54,20 +55,20 @@ void	my_sig_handler(int signum, siginfo_t *info, void *context)
 int	main(void)
 {
 	struct sigaction	usr1;
-	struct sigaction	usr2;
 	pid_t	pid;
 
 	pid = getpid();
+	_puts("server pid : ");
 	print_nbr(pid);
 	_putchar('\n');
+
 	usr1.sa_sigaction = my_sig_handler;
 	usr1.sa_flags = SA_SIGINFO;
 	sigemptyset(&usr1.sa_mask);
+	sigaddset(&usr1.sa_mask, SIGUSR1);
+	sigaddset(&usr1.sa_mask, SIGUSR2);
 	sigaction(SIGUSR1, &usr1, NULL);
-	usr2.sa_sigaction = my_sig_handler;
-	usr2.sa_flags = SA_SIGINFO;
-	sigemptyset(&usr2.sa_mask);
-	sigaction(SIGUSR2, &usr2, NULL);
+	sigaction(SIGUSR2, &usr1, NULL);
 	while (1)
 	{
 		;

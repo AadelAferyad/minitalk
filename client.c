@@ -31,6 +31,11 @@ void	send_sig(char *buffer, int pid)
 /*
  * 
  * */
+void	my_handler(int signum)
+{
+	_puts("message recived\n");
+	exit(0);
+}
 
 void	conver_to_bin(int c, int pid)
 {
@@ -39,15 +44,9 @@ void	conver_to_bin(int c, int pid)
 
 	i = 0;
 	buffer[8] = '\0';
-	printf("%c", c);
 	while (c > 0)
 	{
 		buffer[i] = c % 2 + '0';
-		if (i == 7)
-		{
-			send_sig(buffer, pid);
-			i = 0;
-		}
 		i++;
 		c = c / 2;
 	}
@@ -61,6 +60,7 @@ int	main(int ac, char **av)
 	int	pid;
 	int	i;
 
+	signal(SIGUSR1, my_handler);
 	i = 0;
 	if (ac < 3)
 		return (0);
@@ -70,5 +70,8 @@ int	main(int ac, char **av)
 		conver_to_bin((unsigned char) av[2][i], pid);
 		i++;
 	}
+	conver_to_bin(av[2][i], pid);
+	while (1)
+		pause();
 	return (0);
 }
