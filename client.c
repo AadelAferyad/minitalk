@@ -28,13 +28,6 @@ void	send_sig(char *buffer, int pid)
 	}
 }
 
-void	my_handler(int signum)
-{
-	(void) signum;
-	_puts("message recived\n");
-	exit(0);
-}
-
 void	conver_to_bin(int c, int pid)
 {
 	int		i;
@@ -58,7 +51,6 @@ int	main(int ac, char **av)
 	int	pid;
 	int	i;
 
-	signal(SIGUSR1, my_handler);
 	i = 0;
 	if (ac < 3)
 		return (0);
@@ -71,7 +63,5 @@ int	main(int ac, char **av)
 		i++;
 	}
 	conver_to_bin(av[2][i], pid);
-	while (1)
-		pause();
 	return (0);
 }

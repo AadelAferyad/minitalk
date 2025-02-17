@@ -41,8 +41,6 @@ void	my_sig_handler(int signum, siginfo_t *info, void *context)
 	else if (signum == SIGUSR2)
 		sigusr2_handler(&byte);
 	counter++;
-	if (counter == 8 && byte == 0)
-		kill(pid, SIGUSR1);
 	if (counter == 8)
 	{
 		_puts((char *)&byte);
